@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { MdOutlineSpeed, MdHistory, MdQuestionMark, MdTrain, MdLocationOn, MdSearch, MdFormatAlignJustify, MdOutlineNotificationsActive, MdPerson } from 'react-icons/md'
-import './App.css'
 import axios from 'axios';
+import styles from './Header.module.css'; // Import CSS module
 
-function Header({ OpenSidebar }) {
+function Header({ toggleSidebar }) {
   const [hasNotification, setHasNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [showMessage, setShowMessage] = useState(false);
@@ -33,19 +33,19 @@ function Header({ OpenSidebar }) {
   };
 
   return (
-    <header className='header'>
-      <div className='menu-icon'>
-        <MdFormatAlignJustify className='icon' onClick={OpenSidebar} />
+    <header className={styles.header}>
+      <div className={styles.menuIcon}>
+        <MdFormatAlignJustify className={styles.icon} onClick={toggleSidebar} />
       </div>
-      <div className='header-right'>
-        <div className='notification-icon' onClick={handleNotificationClick}>
-          <MdOutlineNotificationsActive className='icon' />
-          {hasNotification && <span className='notification-dot'></span>}
+      <div className={styles.headerRight}>
+        <div className={styles.notificationIcon} onClick={handleNotificationClick}>
+          <MdOutlineNotificationsActive className={styles.icon} />
+          {hasNotification && <span className={styles.notificationDot}></span>}
         </div>
-        <MdPerson className='icon' />
+        <MdPerson className={styles.icon} />
       </div>
       {showMessage && hasNotification && (
-        <div className='notification-message'>
+        <div className={styles.notificationMessage}>
           {notificationMessage}
         </div>
       )}

@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { TableVirtuoso } from 'react-virtuoso';
+import styles from './header/Header.module.css'
 
 const sample = [
     ['Frozen yoghurt', 159, 6.0, 24, 4.0],
@@ -48,7 +49,7 @@ const rows = Array.from({ length: 200 }, (_, index) => {
 
 const VirtuosoTableComponents = {
     Scroller: React.forwardRef((props, ref) => (
-        <TableContainer component={Paper} {...props} ref={ref} sx={{ width: '800px' }} />
+        <TableContainer component={Paper} {...props} ref={ref} sx={{ width: '100%' }} />
     )),
     Table: (props) => (
         <Table {...props} sx={{ borderCollapse: 'separate', tableLayout: 'fixed' }} />
@@ -66,7 +67,7 @@ function fixedHeaderContent() {
                     key={column.dataKey}
                     variant="head"
                     align="center"  /*{column.numeric || false ? 'right' : 'left'}*/
-                    style={{ 
+                    style={{
                         width: column.width,
                         borderBottom: '1px solid #ddd', // Menambahkan garis bawah
                         borderRight: index !== columns.length - 1 ? '1px solid #ddd' : 'none' // Menambahkan garis kanan kecuali untuk kolom terakhir
@@ -101,17 +102,20 @@ function rowContent(_index, row) {
     );
 }
 
-export default function ReactVirtualizedTable() {
+export default function HistoryPage() {
     return (
-        <Box sx={{ margin: 2 }}>
-            <Paper sx={{ height: 400, width: '100%', boxSizing: 'border-box' }}>
-                <TableVirtuoso
-                    data={rows}
-                    components={VirtuosoTableComponents}
-                    fixedHeaderContent={fixedHeaderContent}
-                    itemContent={rowContent}
-                />
-            </Paper>
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+            <Box sx={{ flex: 1, padding: '2rem', display: 'flex', justifyContent: 'center', alignItems: 'center' }}> {/*ini jarak header dan tabel*/}
+                <Paper sx={{ height: 'calc(100vh - 8rem)', width: '90%', overflow: 'hidden', marginBottom: '2rem' }}>
+                    <TableVirtuoso
+                        data={rows}
+                        components={VirtuosoTableComponents}
+                        fixedHeaderContent={fixedHeaderContent}
+                        itemContent={rowContent}
+                    />
+                </Paper>
+            </Box>
         </Box>
     );
 }
+
